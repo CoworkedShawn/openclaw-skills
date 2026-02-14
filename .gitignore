@@ -1,0 +1,16 @@
+# Credentials
+credentials.json
+*_credentials.json
+!*_credentials.example.json
+.env
+!.env.example
+
+# macOS
+.DS_Store
+
+# Node
+node_modules/
+
+# Python
+__pycache__/
+*.pyc

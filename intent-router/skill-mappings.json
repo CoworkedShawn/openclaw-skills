@@ -1,0 +1,91 @@
+{
+  "calendar_scheduling": {
+    "primary_skill": "calendar-manager",
+    "fallback_skills": ["task-manager", "reminder-system"],
+    "required_tools": ["calendar"],
+    "context_preservation": true,
+    "confidence_threshold": 0.7,
+    "description": "Routes calendar and scheduling requests to calendar management tools"
+  },
+
+  "email_management": {
+    "primary_skill": "email-assistant",
+    "fallback_skills": ["message-handler", "communication-manager"],
+    "required_tools": ["message"],
+    "context_preservation": true,
+    "confidence_threshold": 0.7,
+    "description": "Routes email-related requests to email management tools"
+  },
+
+  "file_operations": {
+    "primary_skill": "file-manager",
+    "fallback_skills": ["document-organizer"],
+    "required_tools": ["read", "write", "edit"],
+    "context_preservation": false,
+    "confidence_threshold": 0.6,
+    "description": "Routes file and document operations to file management tools"
+  },
+
+  "research_web_search": {
+    "primary_skill": "research-assistant",
+    "fallback_skills": ["web-searcher", "information-gatherer"],
+    "required_tools": ["web_search", "web_fetch"],
+    "context_preservation": true,
+    "confidence_threshold": 0.6,
+    "description": "Routes research and search requests to web research tools"
+  },
+
+  "coding_development": {
+    "primary_skill": "code-assistant",
+    "fallback_skills": ["development-helper"],
+    "required_tools": ["exec", "read", "write"],
+    "context_preservation": true,
+    "confidence_threshold": 0.7,
+    "description": "Routes coding and development requests to programming assistance tools"
+  },
+
+  "social_media_posting": {
+    "primary_skill": "social-media-manager",
+    "fallback_skills": ["content-publisher"],
+    "required_tools": ["message"],
+    "context_preservation": false,
+    "confidence_threshold": 0.7,
+    "description": "Routes social media requests to social media management tools"
+  },
+
+  "system_configuration": {
+    "primary_skill": "system-admin",
+    "fallback_skills": ["config-manager"],
+    "required_tools": ["exec", "process"],
+    "context_preservation": false,
+    "confidence_threshold": 0.8,
+    "description": "Routes system configuration requests to system administration tools"
+  },
+
+  "sales_crm_activities": {
+    "primary_skill": "crm-manager",
+    "fallback_skills": ["sales-assistant"],
+    "required_tools": ["read", "write"],
+    "context_preservation": true,
+    "confidence_threshold": 0.7,
+    "description": "Routes CRM and sales activities to customer relationship management tools"
+  },
+
+  "task_management": {
+    "primary_skill": "task-manager",
+    "fallback_skills": ["todo-assistant"],
+    "required_tools": ["read", "write"],
+    "context_preservation": true,
+    "confidence_threshold": 0.7,
+    "description": "Routes task and project management requests to task management tools"
+  },
+
+  "general_assistance": {
+    "primary_skill": "general-assistant",
+    "fallback_skills": ["help-system"],
+    "required_tools": ["read", "write"],
+    "context_preservation": false,
+    "confidence_threshold": 0.5,
+    "description": "Routes general assistance requests to the default general assistant"
+  }
+}

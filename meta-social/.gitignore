@@ -1,0 +1,5 @@
+# Credentials - DO NOT COMMIT
+*.json
+!_meta.json
+.env
+

@@ -1,0 +1,175 @@
+{
+  "timestamp": "2026-02-12T14:19:23.394Z",
+  "analyzer": [
+    {
+      "message": "Schedule a meeting with John tomorrow at 2pm",
+      "expected": "calendar_scheduling",
+      "actual": "calendar_scheduling",
+      "confidence": 0.3452857142857143,
+      "success": true,
+      "parametersCorrect": false,
+      "parameters": {
+        "date": "tomorrow",
+        "title": "a meeting with john tomorrow"
+      }
+    },
+    {
+      "message": "Send an email to sarah@company.com about the project",
+      "expected": "email_management",
+      "actual": "email_management",
+      "confidence": 0.3684058441558441,
+      "success": true,
+      "parametersCorrect": true,
+      "parameters": {
+        "recipient": "to",
+        "subject": "the project"
+      }
+    },
+    {
+      "message": "Create a new file called project-notes.md",
+      "expected": "file_operations",
+      "actual": "file_operations",
+      "confidence": 0.19971428571428573,
+      "success": true,
+      "parametersCorrect": true,
+      "parameters": {
+        "filename": "project-notes.md",
+        "action": "create"
+      }
+    },
+    {
+      "message": "Search for information about artificial intelligence trends",
+      "expected": "research_web_search",
+      "actual": "research_web_search",
+      "confidence": 0.21357142857142858,
+      "success": true,
+      "parametersCorrect": true,
+      "parameters": {
+        "query": "information about artificial intelligence trends"
+      }
+    },
+    {
+      "message": "Write a Python function to calculate fibonacci numbers",
+      "expected": "coding_development",
+      "actual": "coding_development",
+      "confidence": 0.19675,
+      "success": true,
+      "parametersCorrect": true,
+      "parameters": {
+        "language": "python",
+        "codeType": "function"
+      }
+    },
+    {
+      "message": "Post on Twitter about our new product launch",
+      "expected": "social_media_posting",
+      "actual": "social_media_posting",
+      "confidence": 0.21274242424242423,
+      "success": true,
+      "parametersCorrect": true,
+      "parameters": {
+        "platform": "twitter",
+        "content": "on twitter about our new product launch"
+      }
+    },
+    {
+      "message": "Configure the development environment settings",
+      "expected": "system_configuration",
+      "actual": "system_configuration",
+      "confidence": 0.24222222222222223,
+      "success": true,
+      "parametersCorrect": false,
+      "parameters": {}
+    },
+    {
+      "message": "Add a new lead named Mike Johnson to the CRM",
+      "expected": "sales_crm_activities",
+      "actual": "sales_crm_activities",
+      "confidence": 0.20811688311688312,
+      "success": true,
+      "parametersCorrect": true,
+      "parameters": {
+        "contactName": "mike",
+        "action": "add"
+      }
+    },
+    {
+      "message": "Create a task to review the quarterly report",
+      "expected": "task_management",
+      "actual": "task_management",
+      "confidence": 0.13555555555555557,
+      "success": true,
+      "parametersCorrect": false,
+      "parameters": {}
+    },
+    {
+      "message": "Help me understand how to use the calendar feature",
+      "expected": "general_assistance",
+      "actual": "calendar_scheduling",
+      "confidence": 0.23600000000000002,
+      "success": false,
+      "parametersCorrect": true,
+      "parameters": {}
+    }
+  ],
+  "router": [
+    {
+      "message": "Schedule a team meeting for next Monday at 10am",
+      "expectedAction": "route_to_skill",
+      "actualAction": "clarification_needed",
+      "expectedSkill": "calendar-manager",
+      "success": false,
+      "confidence": 0.28550000000000003
+    },
+    {
+      "message": "I need to do something important but not sure what",
+      "expectedAction": "clarification_needed",
+      "actualAction": "clarification_needed",
+      "success": true,
+      "confidence": 0.025
+    },
+    {
+      "message": "Send email to the entire company about policy changes",
+      "expectedAction": "route_to_skill",
+      "actualAction": "clarification_needed",
+      "expectedSkill": "email-assistant",
+      "success": false,
+      "confidence": 0.3684058441558441
+    },
+    {
+      "message": "Create a backup of all my important files",
+      "expectedAction": "route_to_skill",
+      "actualAction": "clarification_needed",
+      "expectedSkill": "file-manager",
+      "success": false,
+      "confidence": 0.1457142857142857
+    }
+  ],
+  "integration": [
+    {
+      "message": "Book a doctor appointment for Thursday at 3pm",
+      "success": false,
+      "hasSkillExecution": false,
+      "hasClarificationRequest": true,
+      "hasErrorHandling": false,
+      "confidence": 0.281
+    },
+    {
+      "message": "Check my email for urgent messages",
+      "success": false,
+      "hasSkillExecution": false,
+      "hasClarificationRequest": true,
+      "hasErrorHandling": false,
+      "confidence": 0.3684058441558441
+    },
+    {
+      "message": "Something about files but not specific",
+      "success": true,
+      "hasSkillExecution": false,
+      "hasClarificationRequest": true,
+      "hasErrorHandling": false,
+      "confidence": 0.12285714285714286
+    }
+  ],
+  "overall": {}
+}

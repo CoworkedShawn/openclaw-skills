@@ -1,0 +1,157 @@
+{
+  "calendar_scheduling": {
+    "keywords": ["calendar", "schedule", "meeting", "appointment", "event", "remind", "reminder", "book", "reserve", "plan"],
+    "patterns": [
+      "schedule\\s+(?:a\\s+)?(?:meeting|appointment|event)",
+      "set\\s+(?:up\\s+)?(?:a\\s+)?reminder",
+      "add\\s+(?:to\\s+)?(?:my\\s+)?calendar",
+      "book\\s+(?:an\\s+)?appointment",
+      "when\\s+(?:is|am)\\s+(?:i\\s+)?(?:free|available)",
+      "check\\s+(?:my\\s+)?calendar",
+      "create\\s+(?:an\\s+)?event"
+    ],
+    "timeContext": ["tomorrow", "today", "next", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday", "am", "pm", "morning", "afternoon", "evening"],
+    "priority": 0.9,
+    "confidence_boost": 0.2
+  },
+
+  "email_management": {
+    "keywords": ["email", "mail", "inbox", "send", "reply", "forward", "draft", "message", "compose", "gmail", "outlook"],
+    "patterns": [
+      "send\\s+(?:an\\s+)?email",
+      "check\\s+(?:my\\s+)?(?:email|inbox)",
+      "reply\\s+to",
+      "forward\\s+(?:the\\s+)?email",
+      "write\\s+(?:an\\s+)?email",
+      "compose\\s+(?:a\\s+)?message",
+      "email\\s+(?:someone|[\\w@.]+)"
+    ],
+    "actionContext": ["send", "check", "reply", "forward", "compose", "draft"],
+    "priority": 0.85,
+    "confidence_boost": 0.15
+  },
+
+  "file_operations": {
+    "keywords": ["file", "folder", "directory", "create", "edit", "save", "open", "read", "write", "delete", "move", "copy", "organize", "document"],
+    "patterns": [
+      "(?:create|make)\\s+(?:a\\s+)?(?:new\\s+)?file",
+      "edit\\s+(?:the\\s+)?file",
+      "save\\s+(?:the\\s+)?file",
+      "open\\s+(?:the\\s+)?file",
+      "organize\\s+(?:my\\s+)?files",
+      "manage\\s+(?:my\\s+)?documents",
+      "delete\\s+(?:the\\s+)?file",
+      "move\\s+(?:the\\s+)?file"
+    ],
+    "fileExtensions": [".txt", ".md", ".json", ".js", ".py", ".html", ".css", ".pdf", ".doc", ".xlsx"],
+    "priority": 0.8,
+    "confidence_boost": 0.1
+  },
+
+  "research_web_search": {
+    "keywords": ["search", "research", "find", "look up", "google", "investigate", "explore", "discover", "information", "data"],
+    "patterns": [
+      "search\\s+(?:for\\s+)?(.+)",
+      "look\\s+up\\s+(.+)",
+      "find\\s+(?:information\\s+)?(?:about\\s+)?(.+)",
+      "research\\s+(.+)",
+      "what\\s+(?:is|are)\\s+(.+)",
+      "tell\\s+me\\s+about\\s+(.+)",
+      "investigate\\s+(.+)"
+    ],
+    "searchContext": ["information", "data", "facts", "details", "news", "articles", "reports"],
+    "priority": 0.75,
+    "confidence_boost": 0.1
+  },
+
+  "coding_development": {
+    "keywords": ["code", "programming", "javascript", "python", "html", "css", "debug", "build", "test", "git", "app", "website", "function", "script", "program", "develop"],
+    "patterns": [
+      "write\\s+(?:some\\s+)?code",
+      "create\\s+(?:an?\\s+)?(?:app|application|website)",
+      "build\\s+(?:a\\s+)?(?:website|app|program)",
+      "fix\\s+(?:the\\s+)?(?:bug|code|error)",
+      "debug\\s+(?:the\\s+)?(?:code|program)",
+      "run\\s+(?:the\\s+)?tests",
+      "develop\\s+(?:a\\s+)?(?:feature|function)"
+    ],
+    "languages": ["javascript", "python", "java", "html", "css", "react", "node", "typescript", "php", "sql"],
+    "priority": 0.85,
+    "confidence_boost": 0.15
+  },
+
+  "social_media_posting": {
+    "keywords": ["tweet", "post", "twitter", "facebook", "linkedin", "instagram", "share", "social media", "publish", "update", "status"],
+    "patterns": [
+      "post\\s+(?:on\\s+)?(?:twitter|facebook|linkedin|instagram)",
+      "tweet\\s+(?:about\\s+)?(.+)",
+      "share\\s+(?:on\\s+)?social\\s+media",
+      "publish\\s+(?:a\\s+)?post",
+      "update\\s+(?:my\\s+)?status",
+      "social\\s+media\\s+post"
+    ],
+    "platforms": ["twitter", "facebook", "linkedin", "instagram", "tiktok", "youtube"],
+    "priority": 0.7,
+    "confidence_boost": 0.1
+  },
+
+  "system_configuration": {
+    "keywords": ["config", "settings", "setup", "install", "configure", "system", "preferences", "options", "environment"],
+    "patterns": [
+      "configure\\s+(?:the\\s+)?system",
+      "change\\s+(?:my\\s+)?settings",
+      "setup\\s+(?:the\\s+)?(?:environment|system)",
+      "install\\s+(?:the\\s+)?(?:software|package)",
+      "update\\s+(?:the\\s+)?(?:configuration|settings)",
+      "system\\s+preferences"
+    ],
+    "systemContext": ["environment", "configuration", "installation", "setup", "deployment"],
+    "priority": 0.8,
+    "confidence_boost": 0.1
+  },
+
+  "sales_crm_activities": {
+    "keywords": ["lead", "customer", "sales", "crm", "contact", "opportunity", "deal", "pipeline", "prospect", "client", "account"],
+    "patterns": [
+      "add\\s+(?:a\\s+)?(?:new\\s+)?lead",
+      "update\\s+(?:the\\s+)?contact",
+      "create\\s+(?:an?\\s+)?opportunity",
+      "check\\s+(?:my\\s+)?(?:pipeline|deals)",
+      "follow\\s+up\\s+with\\s+(?:the\\s+)?(?:customer|client)",
+      "update\\s+(?:the\\s+)?deal",
+      "manage\\s+(?:my\\s+)?contacts"
+    ],
+    "crmContext": ["pipeline", "forecast", "quota", "commission", "revenue"],
+    "priority": 0.75,
+    "confidence_boost": 0.1
+  },
+
+  "task_management": {
+    "keywords": ["task", "todo", "reminder", "deadline", "priority", "complete", "finish", "assign", "project"],
+    "patterns": [
+      "add\\s+(?:a\\s+)?task",
+      "create\\s+(?:a\\s+)?(?:todo|reminder)",
+      "mark\\s+(?:as\\s+)?(?:complete|done)",
+      "set\\s+(?:a\\s+)?deadline",
+      "assign\\s+(?:a\\s+)?task",
+      "manage\\s+(?:my\\s+)?tasks"
+    ],
+    "taskContext": ["urgent", "important", "low priority", "high priority", "overdue"],
+    "priority": 0.8,
+    "confidence_boost": 0.1
+  },
+
+  "general_assistance": {
+    "keywords": ["help", "assist", "support", "how to", "what", "explain", "guide", "instructions"],
+    "patterns": [
+      "help\\s+(?:me\\s+)?(?:with\\s+)?(.+)",
+      "how\\s+(?:do\\s+)?(?:i\\s+)?(.+)",
+      "what\\s+(?:is\\s+)?(.+)",
+      "explain\\s+(.+)",
+      "show\\s+me\\s+how\\s+to\\s+(.+)",
+      "i\\s+need\\s+help\\s+with\\s+(.+)"
+    ],
+    "priority": 0.5,
+    "confidence_boost": 0.0
+  }
+}

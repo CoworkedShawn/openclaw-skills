@@ -1,0 +1,151 @@
+{
+  "calendar_scheduling": {
+    "skill": "calendar",
+    "module": "calendar-manager",
+    "action": "handle_calendar_request",
+    "required_params": ["action"],
+    "optional_params": ["title", "time", "date", "location", "duration", "participants"],
+    "fallback_skill": "general_assistant",
+    "confidence_threshold": 0.7,
+    "context_boost": {
+      "keywords": ["meeting", "reminder", "appointment"],
+      "threshold_boost": 0.1
+    }
+  },
+
+  "email_management": {
+    "skill": "email",
+    "module": "email-manager",
+    "action": "handle_email_request",
+    "required_params": ["action"],
+    "optional_params": ["recipient", "subject", "body", "attachments"],
+    "fallback_skill": "message",
+    "confidence_threshold": 0.7,
+    "context_boost": {
+      "keywords": ["send", "reply", "forward"],
+      "threshold_boost": 0.1
+    }
+  },
+
+  "file_operations": {
+    "skill": "file_manager",
+    "module": "file-operations",
+    "action": "handle_file_request",
+    "required_params": ["action"],
+    "optional_params": ["filename", "path", "content", "file_type"],
+    "fallback_skill": "general_assistant",
+    "confidence_threshold": 0.6,
+    "context_boost": {
+      "keywords": ["create", "edit", "save"],
+      "threshold_boost": 0.1
+    }
+  },
+
+  "research_web_search": {
+    "skill": "research",
+    "module": "web-search",
+    "action": "handle_search_request",
+    "required_params": ["query"],
+    "optional_params": ["count", "freshness", "search_lang", "region"],
+    "fallback_skill": "general_assistant",
+    "confidence_threshold": 0.6,
+    "context_boost": {
+      "keywords": ["find", "search", "research"],
+      "threshold_boost": 0.1
+    }
+  },
+
+  "coding_development": {
+    "skill": "developer",
+    "module": "coding-assistant",
+    "action": "handle_coding_request",
+    "required_params": ["request_type"],
+    "optional_params": ["language", "code_type", "specifications", "file_path"],
+    "fallback_skill": "general_assistant",
+    "confidence_threshold": 0.7,
+    "context_boost": {
+      "keywords": ["code", "program", "build", "debug"],
+      "threshold_boost": 0.1
+    }
+  },
+
+  "social_media_posting": {
+    "skill": "social_media",
+    "module": "social-manager",
+    "action": "handle_social_request",
+    "required_params": ["platform", "content"],
+    "optional_params": ["media", "scheduled_time", "hashtags"],
+    "fallback_skill": "message",
+    "confidence_threshold": 0.7,
+    "context_boost": {
+      "keywords": ["post", "tweet", "share"],
+      "threshold_boost": 0.1
+    }
+  },
+
+  "system_configuration": {
+    "skill": "system_admin",
+    "module": "system-config",
+    "action": "handle_system_request",
+    "required_params": ["config_action"],
+    "optional_params": ["target_system", "settings", "software"],
+    "fallback_skill": "general_assistant",
+    "confidence_threshold": 0.6,
+    "context_boost": {
+      "keywords": ["configure", "setup", "install"],
+      "threshold_boost": 0.1
+    }
+  },
+
+  "sales_crm_activities": {
+    "skill": "crm",
+    "module": "crm-manager",
+    "action": "handle_crm_request",
+    "required_params": ["crm_action"],
+    "optional_params": ["lead_name", "contact_info", "opportunity_details", "deal_value"],
+    "fallback_skill": "general_assistant",
+    "confidence_threshold": 0.7,
+    "context_boost": {
+      "keywords": ["lead", "opportunity", "deal"],
+      "threshold_boost": 0.1
+    }
+  },
+
+  "help_assistance": {
+    "skill": "help",
+    "module": "help-system",
+    "action": "handle_help_request",
+    "required_params": ["help_topic"],
+    "optional_params": ["specific_question", "user_level"],
+    "fallback_skill": "general_assistant",
+    "confidence_threshold": 0.5,
+    "context_boost": {
+      "keywords": ["help", "how", "explain"],
+      "threshold_boost": 0.1
+    }
+  },
+
+  "general_conversation": {
+    "skill": "conversation",
+    "module": "chat-assistant",
+    "action": "handle_conversation",
+    "required_params": [],
+    "optional_params": ["mood", "formality", "context"],
+    "fallback_skill": "general_assistant",
+    "confidence_threshold": 0.5,
+    "context_boost": {
+      "keywords": ["hello", "hi", "thanks"],
+      "threshold_boost": 0.05
+    }
+  },
+
+  "unknown": {
+    "skill": "general_assistant",
+    "module": "default-assistant",
+    "action": "handle_general_request",
+    "required_params": [],
+    "optional_params": ["original_message", "attempted_intent"],
+    "fallback_skill": null,
+    "confidence_threshold": 0.0
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "calendar": {
+    "name": "Calendar Manager",
+    "description": "Manages calendar events, meetings, and appointments",
+    "available": true,
+    "skills_path": "/skills/calendar-manager",
+    "required_tools": ["calendar"],
+    "capabilities": ["schedule_meeting", "add_reminder", "check_calendar", "set_appointment", "list_events", "delete_event"],
+    "default_action": "handle_calendar_request",
+    "supported_formats": ["natural_language", "structured_data"],
+    "response_format": "action_result_with_details"
+  },
+
+  "email": {
+    "name": "Email Manager",
+    "description": "Handles email operations including sending, reading, and organizing",
+    "available": true,
+    "skills_path": "/skills/email-manager",
+    "required_tools": ["message"],
+    "capabilities": ["send_email", "read_inbox", "forward_email", "compose_draft", "manage_contacts", "create_template"],
+    "default_action": "handle_email_request",
+    "supported_formats": ["email_address", "template", "draft"],
+    "response_format": "message_status_with_summary"
+  },
+
+  "file_manager": {
+    "name": "File Operations",
+    "description": "Manages file system operations and document handling",
+    "available": true,
+    "skills_path": "/skills/file-operations",
+    "required_tools": ["read", "write", "edit"],
+    "capabilities": ["create_file", "edit_file", "organize_files", "read_document", "convert_format", "compress_files"],
+    "default_action": "handle_file_request",
+    "supported_formats": ["text", "json", "markdown", "code"],
+    "response_format": "file_operation_result",
+    "restrictions": ["no_system_files", "workspace_safe_only"]
+  },
+
+  "research": {
+    "name": "Web Research",
+    "description": "Performs web searches and information gathering",
+    "available": true,
+    "skills_path": "/skills/web-search",
+    "required_tools": ["web_search", "web_fetch"],
+    "capabilities": ["search_web", "fetch_content", "research_topic", "summarize_findings", "create_report"],
+    "default_action": "handle_search_request",
+    "supported_formats": ["query", "url", "research_topic"],
+    "response_format": "search_result_with_summary_and_sources",
+    "rate_limits": { "max_requests_per_minute": 10, "max_results_per_query": 10 }
+  },
+
+  "developer": {
+    "name": "Development Assistant",
+    "description": "Provides coding assistance and development tools",
+    "available": true,
+    "skills_path": "/skills/coding-assistant",
+    "required_tools": ["exec", "write", "read"],
+    "capabilities": ["write_code", "debug_application", "run_tests", "manage_git", "create_project", "review_code"],
+    "default_action": "handle_coding_request",
+    "supported_languages": ["javascript", "python", "html", "css", "bash", "sql"],
+    "response_format": "code_result_with_execution_status",
+    "safety_checks": ["no_destructive_operations", "workspace_safe_only"]
+  },
+
+  "social_media": {
+    "name": "Social Media Manager",
+    "description": "Manages social media posting and interactions",
+    "available": true,
+    "skills_path": "/skills/social-manager",
+    "required_tools": ["message"],
+    "capabilities": ["post_content", "schedule_posts", "manage_accounts", "create_content", "track_engagement"],
+    "default_action": "handle_social_request",
+    "supported_platforms": ["twitter", "linkedin", "facebook"],
+    "response_format": "post_status_with_analytics",
+    "restrictions": ["no_automated_spam", "account_verification_required"]
+  },
+
+  "system_admin": {
+    "name": "System Administrator",
+    "description": "Handles system configuration and administration tasks",
+    "available": true,
+    "skills_path": "/skills/system-config",
+    "required_tools": ["exec", "process"],
+    "capabilities": ["configure_system", "install_software", "manage_services", "check_status", "update_system"],
+    "default_action": "handle_system_request",
+    "supported_systems": ["macos", "linux"],
+    "response_format": "system_operation_result",
+    "safety_checks": ["admin_approval_required", "workspace_safe_only"]
+  },
+
+  "crm": {
+    "name": "CRM Manager",
+    "description": "Manages customer relationship and sales activities",
+    "available": true,
+    "skills_path": "/skills/crm-manager",
+    "required_tools": ["read", "write"],
+    "capabilities": ["manage_leads", "update_contacts", "track_opportunities", "generate_reports", "create_deals"],
+    "default_action": "handle_crm_request",
+    "supported_crm_types": ["sales_pipeline", "contact_management"],
+    "response_format": "crm_operation_result_with_metrics"
+  },
+
+  "help": {
+    "name": "Help System",
+    "description": "Provides help and guidance for system usage",
+    "available": true,
+    "skills_path": "/skills/help-system",
+    "required_tools": ["read"],
+    "capabilities": ["answer_questions", "provide_tutorials", "explain_features", "guide_user"],
+    "default_action": "handle_help_request",
+    "supported_topics": ["all_system_features"],
+    "response_format": "help_response_with_examples"
+  },
+
+  "conversation": {
+    "name": "Conversation Assistant",
+    "description": "Handles general conversation and social interactions",
+    "available": true,
+    "skills_path": "/skills/chat-assistant",
+    "required_tools": ["message"],
+    "capabilities": ["chat_responses", "maintain_context", "social_interaction", "mood_awareness"],
+    "default_action": "handle_conversation",
+    "supported_modes": ["casual", "professional", "friendly"],
+    "response_format": "conversational_response"
+  },
+
+  "general_assistant": {
+    "name": "General Assistant",
+    "description": "Default assistant for handling general requests",
+    "available": true,
+    "skills_path": "/skills/default-assistant",
+    "required_tools": ["read", "write", "exec"],
+    "capabilities": ["general_help", "information_lookup", "basic_operations", "task_coordination"],
+    "default_action": "handle_general_request",
+    "fallback_target": true,
+    "response_format": "assistance_response_with_suggestions"
+  },
+
+  "message": {
+    "name": "Message Handler",
+    "description": "Handles messaging and communication tasks",
+    "available": true,
+    "skills_path": "/skills/message-handler",
+    "required_tools": ["message"],
+    "capabilities": ["send_messages", "handle_responses", "manage_communications", "format_messages"],
+    "default_action": "handle_message_request",
+    "supported_channels": ["whatsapp", "email", "text"],
+    "response_format": "message_status_with_delivery_info"
+  }
+}

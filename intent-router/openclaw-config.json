@@ -1,0 +1,46 @@
+{
+  "enabled": true,
+  "confidence_threshold": 0.6,
+  "fallback_to_general": true,
+  "preserve_context": true,
+  "max_context_history": 10,
+  "auto_learn": false,
+  "debugging": false,
+  "skill_timeout_ms": 30000,
+  "retry_failed_routing": false,
+  "log_all_interactions": true,
+  "advanced_settings": {
+    "intent_analysis": {
+      "enable_context_boosting": true,
+      "enable_learning_from_corrections": false,
+      "minimum_confidence_for_auto_routing": 0.8,
+      "require_confirmation_for_destructive_actions": true
+    },
+    "skill_selection": {
+      "prefer_recently_used_skills": true,
+      "avoid_recently_failed_skills": true,
+      "fallback_chain_length": 3,
+      "enable_skill_load_balancing": false
+    },
+    "context_management": {
+      "session_timeout_minutes": 30,
+      "max_concurrent_sessions": 100,
+      "context_cleanup_interval_minutes": 15,
+      "preserve_failed_attempts": true
+    },
+    "performance": {
+      "cache_intent_analysis_results": true,
+      "cache_duration_minutes": 5,
+      "enable_batch_processing": false,
+      "max_concurrent_routings": 10
+    }
+  },
+  "notification_settings": {
+    "log_successful_routings": false,
+    "log_failed_routings": true,
+    "log_clarification_requests": true,
+    "log_fallback_usage": true,
+    "alert_on_high_failure_rate": true,
+    "failure_rate_threshold": 0.3
+  }
+}
