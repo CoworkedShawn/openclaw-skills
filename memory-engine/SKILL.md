@@ -2,62 +2,102 @@
 name: memory-engine
 description: Cognitive control memory system based on "On Task" by David Badre. Handles input gating, output gating, hierarchical memory, and procedural runbooks.
 homepage: https://mitpress.mit.edu/9780262545266/on-task/
+version: 2.0.0
 metadata:
   openclaw:
     emoji: "🧠"
 ---
 
-# Memory Engine Skill
+# Memory Engine Skill v2.0
 
 A cognitive control memory system inspired by **David Badre's "On Task"** — applying neuroscience principles of gating, hierarchical control, and working memory to agent memory management.
 
+## What's New in v2.0
+
+- **`sync`** - Pulls current cron inventory into active-context.md
+- **`stub`** - Creates today's daily note from template
+- **`refresh`** - Full refresh (stub + sync + state check)
+- **`alert`** - P0/P1/P2 severity-based alerts with exit codes
+- **Heartbeat integration** - Memory check as first step of every heartbeat
+- **Model switch protocol** - Explicit continuity for model changes
+
 ## Quick Start
 
-### 1. Copy Templates to Your Workspace
+### 1. Install the Engine
 
 ```bash
-# Copy the templates directory
-cp -r memory-engine/templates/* ~/.openclaw/workspace/memory/
+# Copy scripts to your workspace
+mkdir -p ~/.openclaw/workspace/memory-engine/scripts
+cp memory-engine/scripts/engine.js ~/.openclaw/workspace/memory-engine/scripts/
 
-# Rename template files
-mv ~/.openclaw/workspace/memory/active-context.template.md ~/.openclaw/workspace/memory/active-context.md
-mv ~/.openclaw/workspace/memory/MEMORY.template.md ~/.openclaw/workspace/MEMORY.md
+# Copy templates
+cp -r memory-engine/templates/* ~/.openclaw/workspace/memory/
 ```
 
-### 2. Directory Structure
+### 2. Basic Commands
+
+```bash
+cd ~/.openclaw/workspace
+
+# Full refresh (recommended daily)
+node memory-engine/scripts/engine.js refresh
+
+# Check for alerts
+node memory-engine/scripts/engine.js alert
+
+# Sync state to active-context.md
+node memory-engine/scripts/engine.js sync
+
+# Create today's daily note
+node memory-engine/scripts/engine.js stub
+
+# Full audit
+node memory-engine/scripts/engine.js audit
+
+# Archive old notes (30+ days)
+node memory-engine/scripts/engine.js decay
+```
+
+### 3. Directory Structure
 
 ```
 ~/.openclaw/workspace/
-├── MEMORY.md                    # Strategic: Long-term lessons (from template)
+├── MEMORY.md                    # Strategic: Long-term lessons
 ├── memory/
 │   ├── ARCHITECTURE.md          # Framework documentation
-│   ├── active-context.md        # Working memory (from template)
+│   ├── active-context.md        # Working memory (ALWAYS READ)
 │   ├── decay-policies.md        # Content lifecycle rules
 │   ├── state-detectors.md       # Automated update triggers
-│   ├── YYYY-MM-DD.md           # Daily notes (create as needed)
+│   ├── YYYY-MM-DD.md           # Daily notes
 │   ├── runbooks/
 │   │   ├── README.md           # Runbook index
 │   │   └── *.md                # Procedural runbooks
-│   └── archive/                # Decayed content (auto-created)
+│   └── archive/                # Archived old notes
+├── memory-engine/
+│   └── scripts/
+│       └── engine.js           # Memory engine CLI
 ```
 
-### 3. Configure Your Agent
+---
 
-Add to your `AGENTS.md` or system prompt:
+## Alert Severity Levels
 
-```markdown
-## Memory Protocol
+| Level | Meaning | Exit Code | Action Required |
+|-------|---------|-----------|-----------------|
+| **P0** | CRITICAL | 2 | Fix immediately |
+| **P1** | WARNING | 1 | Note for attention |
+| **P2** | INFO | 0 | Informational |
 
-Before acting on any task:
-1. Read `memory/active-context.md` (working memory)
-2. If task has a runbook, read it from `memory/runbooks/`
-3. Check `TOOLS.md` for domain-specific config
+**P0 Triggers:**
+- `active-context.md` missing
+- `active-context.md` >48 hours stale
 
-At session end:
-1. Update `active-context.md` with any state changes
-2. Write significant events to today's daily note
-3. If new procedure discovered, create a runbook
-```
+**P1 Triggers:**
+- `active-context.md` >24 hours stale
+- Cron job with 3+ consecutive errors
+
+**P2 Triggers:**
+- Today's daily note missing
 
 ---
 
@@ -74,9 +114,34 @@ MEMORY.md           ← Strategic: Identity, relationships, long-term lessons
 
 ---
 
-## Input Gating (What Enters Memory)
+## Session Protocols
 
-Not everything is worth storing. Classify before writing:
+### Session Start
+```markdown
+□ Read active-context.md (working memory)
+□ Check staleness (Last Updated timestamp)
+□ If stale (>24h), run `node engine.js refresh`
+□ Load relevant runbooks for current task
+```
+
+### Session End
+```markdown
+□ Run `node engine.js sync`
+□ Update today's daily note if significant events
+□ If new procedure discovered, create runbook
+□ If lesson learned, consider promoting to MEMORY.md
+```
+
+### Model Switch (GP-007)
+When you're a different model than the previous turn:
+1. **MANDATORY**: Read `memory/active-context.md` FIRST
+2. Check "Session Handoff" section for in-progress work
+3. Load relevant runbooks
+4. If stale, run refresh
+
+---
+
+## Input Gating (What Enters Memory)
 
 | Priority | Type | Destination | Example |
 |----------|------|-------------|---------|
@@ -87,60 +152,67 @@ Not everything is worth storing. Classify before writing:
 
 ---
 
-## Output Gating (When Memory Influences Action)
-
-| Context | What Gets Loaded |
-|---------|------------------|
-| Session start | active-context.md (always) |
-| Email task | + email config from TOOLS.md |
-| Video task | + video config + platform credentials |
-| Scheduling | + calendar config |
-| Any complex task | + relevant runbook |
-
-**Key insight**: Always load working memory (`active-context.md`), but only load domain-specific files when that domain is active.
-
----
-
 ## Gating Policies (Failure Prevention)
-
-Learned rules that prevent repeated failures:
 
 | Policy | Trigger | Action |
 |--------|---------|--------|
-| GP-001 | After creating cron jobs | Verify with `cron list`, store IDs |
+| GP-001 | After cron create | Verify with `cron list`, store IDs |
 | GP-002 | Config change | Update TOOLS.md immediately |
-| GP-004 | Session end | Flush state to active-context.md |
-| GP-005 | Before creating cron | List existing, remove duplicates first |
-| GP-007 | Model switch | Read active-context.md + runbooks before acting |
+| GP-004 | Session end | Run `node engine.js sync` |
+| GP-005 | Before cron create | List existing, remove duplicates |
+| GP-007 | Model switch | Read active-context.md + runbooks |
 | GP-008 | New procedure | Create/update runbook |
+| GP-009 | P0 event | Immediately update active-context.md |
+| GP-010 | Weekly | Execute decay audit |
 
 ---
 
-## Working Memory (active-context.md)
+## Heartbeat Integration
 
-The prefrontal cortex analog. Holds:
-- Active commitments and deadlines (next 7 days)
-- Running project states
-- Scheduled automation (cron job IDs)
-- Pending decisions
-- Session handoff notes
+Add to your `HEARTBEAT.md`:
 
-**Rules:**
-- Updated at END of every significant session
-- Read at START of every session
-- Pruned weekly (completed items removed, lessons promoted)
+```markdown
+## 🧠 Memory Check (ALWAYS FIRST)
+Run memory engine alert check before anything else:
+
+node ~/.openclaw/workspace/memory-engine/scripts/engine.js alert
+
+**If P0 alerts**: Fix immediately before proceeding
+**If P1 alerts**: Note for attention, continue
+**If no alerts**: Proceed with other checks
+```
 
 ---
 
-## Runbooks (Procedural Memory)
+## Cron Jobs (Optional)
 
-Location: `memory/runbooks/`
+### Daily Alert Check (Midnight)
+```json
+{
+  "name": "Memory Engine - Daily Alert Check",
+  "schedule": { "kind": "cron", "expr": "0 0 * * *", "tz": "America/New_York" },
+  "sessionTarget": "isolated",
+  "payload": {
+    "kind": "agentTurn",
+    "message": "Run: node ~/.openclaw/workspace/memory-engine/scripts/engine.js alert\n\nIf P0 alerts, run refresh and notify user.",
+    "model": "haiku"
+  }
+}
+```
 
-Runbooks capture HOW to do things — exact commands, API endpoints, auth flows.
-
-**Rule**: If a task requires multi-step tool use, it MUST have a runbook. When a task has a runbook, **read it before executing**.
-
-This is critical for model switches — a new model knows conceptually how to do things but doesn't know YOUR specific setup.
+### Weekly Maintenance (Saturday 3AM)
+```json
+{
+  "name": "Memory Engine - Weekly Maintenance",
+  "schedule": { "kind": "cron", "expr": "0 3 * * 6", "tz": "America/New_York" },
+  "sessionTarget": "isolated",
+  "payload": {
+    "kind": "agentTurn",
+    "message": "Run: node ~/.openclaw/workspace/memory-engine/scripts/engine.js audit\nThen: node engine.js decay\n\nReport results.",
+    "model": "haiku"
+  }
+}
+```
 
 ---
 
@@ -156,56 +228,6 @@ This is critical for model switches — a new model knows conceptually how to do
 
 ---
 
-## Session Checklists
-
-### Session Start
-```markdown
-□ Read active-context.md
-□ Check today's date vs Last Updated
-□ If stale (>24h), scan recent daily notes
-□ Identify active projects and their state
-□ Load relevant runbooks for current task
-```
-
-### Session End
-```markdown
-□ Update active-context.md with any changed state
-□ Write significant events to today's daily note
-□ If new procedure discovered, create runbook
-□ If lesson learned, consider promoting to MEMORY.md
-```
-
----
-
-## Automated Systems
-
-### Decay Policies
-See `templates/decay-policies.md`:
-- Priority-based retention (P0 permanent → P3 session-only)
-- Temporal decay with usage-based extension
-- Archive system with searchable index
-- 7-day grace period before archival
-
-### State Detectors
-See `templates/state-detectors.md`:
-- P0 triggers: Immediate update on cron/config/model changes
-- P1 triggers: Session-end batch updates
-- P2 triggers: Periodic consolidation during heartbeats
-
----
-
-## Memory Maintenance Schedule
-
-| When | Action |
-|------|--------|
-| Every session | Read active-context.md |
-| Session end | Update active-context.md |
-| Daily | Write to YYYY-MM-DD.md |
-| Weekly | Consolidate daily → active-context → MEMORY.md |
-| Weekly | Execute decay audit |
-
----
-
 ## Template Files Included
 
 | File | Purpose |
@@ -216,8 +238,7 @@ See `templates/state-detectors.md`:
 | `templates/daily-note.template.md` | Daily notes template |
 | `templates/decay-policies.md` | Content lifecycle rules |
 | `templates/state-detectors.md` | Automated update triggers |
-| `templates/runbooks/README.md` | Runbook index |
-| `templates/runbooks/example-api.md` | Example runbook |
+| `scripts/engine.js` | Memory engine CLI (v2.0) |
 
 ---
 
@@ -233,5 +254,6 @@ This system applies those principles:
 4. **Working memory** provides session continuity
 5. **Gating policies** prevent repeated failures
 6. **Runbooks** externalize procedural knowledge
+7. **Alerts** surface critical issues before they cause failures
 
 **The goal: Never lose operational context, even across model switches or session resets.**
