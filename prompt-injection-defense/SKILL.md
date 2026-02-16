@@ -127,12 +127,29 @@ When injection is detected:
   "block_injection": true,
   "alert_threshold": 3,
   "time_window_hours": 24,
+  "preferred_model": "opus",
+  "model_requirements": {
+    "security_audit": "opus",
+    "injection_analysis": "opus",
+    "threat_assessment": "opus"
+  },
   "false_positive_tuning": {
     "require_possessive_for_secrets": true,
     "allow_educational_queries": true,
     "context_aware_matching": true
   }
 }
+```
+
+## Model Requirements
+
+**Always use Opus for security tasks.** Opus has superior judgment for:
+- Distinguishing real attacks from false positives
+- Analyzing new attack patterns
+- Making blocking decisions
+- Reviewing medium-confidence detections
+
+Cron jobs for security use `model: "opus"` explicitly.
 ```
 
 ## Heartbeat Integration

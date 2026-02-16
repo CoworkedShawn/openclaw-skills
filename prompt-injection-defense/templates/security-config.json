@@ -6,6 +6,12 @@
   "block_injection": true,
   "alert_threshold": 3,
   "time_window_hours": 24,
+  "preferred_model": "opus",
+  "model_requirements": {
+    "security_audit": "opus",
+    "injection_analysis": "opus",
+    "threat_assessment": "opus"
+  },
   "false_positive_tuning": {
     "require_possessive_for_secrets": true,
     "allow_educational_queries": true,
