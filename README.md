@@ -14,6 +14,8 @@ These skills were built to solve real problems with AI agents:
 
 Read the full implementation story: [Building a Cognitive Architecture for Your OpenClaw Agent](https://shawnharris.com/building-a-cognitive-architecture-for-your-openclaw-agent/)
 
+From the blog: <https://shawnharris.com/building-a-cognitive-architecture-for-your-openclaw-agent/>
+
 ## 🛠️ Skills Included
 
 ### Core Architecture
