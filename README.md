@@ -21,7 +21,7 @@ Read the full implementation story: [Building a Cognitive Architecture for Your 
 | Skill | Description |
 |-------|-------------|
 | [memory-engine](./memory-engine/) | 🧠 Cognitive control memory system based on "On Task" by David Badre. Input/output gating, hierarchical memory, runbooks. |
-| [prompt-injection-defense](./prompt-injection-defense/) | 🛡️ Multi-layered security against prompt injection attacks. 99% threat blocking, <3% false positives. |
+| [prompt-injection-defense](./prompt-injection-defense/) | 🛡️ Multi-layered security against prompt injection attacks. 99% threat blocking, <3% false positives. Includes sanitized architecture write-up. |
 | [intent-router](./intent-router/) | 🎯 Intent-based model selection and skill routing. 10 intent categories with confidence scoring. |
 
 ### Platform Integrations
